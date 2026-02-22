@@ -6,6 +6,8 @@ int	is_digit(char c)
 }
 int	init(int ac, char *av[], t_data *data)
 {
+	int	i;
+
 	data->nb_philo = ft_atoi(av[1]);
 	data->time_to_die = ft_atoi(av[2]);
 	data->time_to_eat = ft_atoi(av[3]);
@@ -17,11 +19,19 @@ int	init(int ac, char *av[], t_data *data)
 	if (data->nb_philo <= 0 || data->time_to_die < 0 || data->time_to_eat < 0
 		|| data->time_to_sleep < 0)
 		return (1);
+	data->forks = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
+	if (!data->forks)
+		return (1);
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		pthread_mutex_init(&data->forks[i], NULL);
+		i++;
+	}
 	data->start_time = 0;
 	data->someone_dead = 0;
 	pthread_mutex_init(&data->print_mutex, NULL);
 	pthread_mutex_init(&data->dead_mutex, NULL);
-	
 	return (0);
 }
 int	main(int ac, char *av[])
