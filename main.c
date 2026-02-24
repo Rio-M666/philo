@@ -37,6 +37,9 @@ int	init(int ac, char *av[], t_data *data)
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
 	if (!data->forks)
 		return (1);
+	data->philo = malloc(sizeof(t_philo) * data->nb_philo);
+	if (!data->philo)
+		return (1);
 	i = 0;
 	while (i < data->nb_philo)
 	{
@@ -72,5 +75,6 @@ int	main(int ac, char *av[])
 	if (init(ac, av, &data))
 		return (1);
 	init_philos(&data);
+	
 	return (0);
 }
