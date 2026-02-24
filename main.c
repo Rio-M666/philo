@@ -4,6 +4,21 @@ int	is_digit(char c)
 {
 	return (c >= '0' && c <= '9');
 }
+void	init_philos(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		data->philo[i].id = i + 1;
+		data->philo[i].meal_count = 0;
+		data->philo[i].last_meal = 0;
+		data->philo[i].left_fork = &data->forks[i];
+		data->philo[i].right_fork = &data->forks[(i + 1) % data->nb_philo];
+		data->philo[i].data = data;
+	}
+}
 int	init(int ac, char *av[], t_data *data)
 {
 	int	i;
@@ -56,5 +71,6 @@ int	main(int ac, char *av[])
 	}
 	if (init(ac, av, &data))
 		return (1);
+	init_philos(&data);
 	return (0);
 }
