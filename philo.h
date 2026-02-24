@@ -22,6 +22,7 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	dead_mutex;
+	pthread_t		monitor_thread;
 
 	t_philo			*philo;
 }					t_data;
