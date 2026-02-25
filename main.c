@@ -58,12 +58,25 @@ void	*routine(void *philo_pointer)
 	t_philo	*philo;
 
 	philo = (t_philo *)philo_pointer;
+	if (philo->id % 2 == 0)
+		usleep(1000);
+	while (1)
+	{
+		eat(philo);
+		sleep_philo(philo);
+		think(philo);
+	}
+	return (NULL);
 }
 void	*monitor(void *arg)
 {
 	t_data	*data;
 
 	data = (t_data *)arg;
+	while(1)
+	{
+		
+	}
 }
 int	main(int ac, char *av[])
 {
