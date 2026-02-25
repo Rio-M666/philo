@@ -59,7 +59,7 @@ void	*routine(void *philo_pointer)
 
 	philo = (t_philo *)philo_pointer;
 	if (philo->id % 2 == 0)
-		usleep(1000);
+		ft_usleep(100);
 	while (1)
 	{
 		eat(philo);
@@ -73,9 +73,8 @@ void	*monitor(void *arg)
 	t_data	*data;
 
 	data = (t_data *)arg;
-	while(1)
+	while (1)
 	{
-		
 	}
 }
 int	main(int ac, char *av[])

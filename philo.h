@@ -44,4 +44,5 @@ typedef struct s_philo
 int					parse_args(int ac, char **av, t_data *data);
 long				get_time(void);
 int					ft_atoi(const char *str);
+void				ft_usleep(long long time);
 #endif

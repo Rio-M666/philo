@@ -9,8 +9,8 @@ long	get_time(void)
 }
 int	ft_atoi(const char *str)
 {
-	int result;
-	int sign;
+	int	result;
+	int	sign;
 
 	result = 0;
 	sign = 1;
@@ -28,4 +28,11 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return (result * sign);
+}
+void	ft_usleep(long long time)
+{
+	long long start;
+	start = get_time();
+	if (get_time() - start < time)
+		usleep(100);
 }
