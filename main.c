@@ -13,7 +13,7 @@ void	init_philos(t_data *data)
 	{
 		data->philo[i].id = i + 1;
 		data->philo[i].meal_count = 0;
-		data->philo[i].last_meal = 0;
+		data->philo[i].last_meal = data->start_time;
 		pthread_mutex_init(&data->philo[i].meal_mutex, NULL);
 		data->philo[i].left_fork = &data->forks[i];
 		data->philo[i].right_fork = &data->forks[(i + 1) % data->nb_philo];
@@ -143,10 +143,13 @@ int	check_dead(t_data *data, int i)
 	now = get_time();
 	if (now - last_meal > data->time_to_die)
 	{
+		pthread_mutex_lock(&data->print_mutex);
 		pthread_mutex_lock(&data->dead_mutex);
 		data->someone_dead = 1;
 		pthread_mutex_unlock(&data->dead_mutex);
 		printf("%ld %d died\n", now - data->start_time, data->philo[i].id);
+		pthread_mutex_unlock(&data->print_mutex);
+
 		return (1);
 	}
 	return (0);
@@ -191,8 +194,8 @@ int	main(int ac, char *av[])
 	}
 	if (init(ac, av, &data))
 		return (1);
-	init_philos(&data);
 	data.start_time = get_time();
+	init_philos(&data);
 	i = 0;
 	while (i < data.nb_philo)
 	{
