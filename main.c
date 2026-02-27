@@ -208,7 +208,7 @@ void	*monitor(void *arg)
 			pthread_mutex_unlock(&data->dead_mutex);
 			return (NULL);
 		}
-		ft_usleep(1000);
+		usleep(1000);
 	}
 }
 int	main(int ac, char *av[])
