@@ -77,6 +77,15 @@ void	print_action(t_philo *philo, char *str)
 }
 void	take_forks(t_philo *philo)
 {
+	if(philo->data->nb_philo==1)
+	{
+		pthread_mutex_lock(philo->left_fork);
+		while(!is_dead(philo->data))
+			usleep(100);
+		pthread_mutex_unlock(philo->left_fork);
+		return ;
+	}
+
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->right_fork);
@@ -94,6 +103,8 @@ void	take_forks(t_philo *philo)
 }
 void	release_forks(t_philo *philo)
 {
+	if(philo->data->nb_philo==1)
+		return;
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
 }
