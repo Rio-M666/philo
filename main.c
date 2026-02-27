@@ -143,6 +143,25 @@ void	*routine(void *philo_pointer)
 	}
 	return (NULL);
 }
+int enough_eat(t_data *data)
+{
+	int i;
+	i=0;
+	if(data->must_eat==-1)
+		return 0;
+	while(i<data->nb_philo)
+	{
+		pthread_mutex_lock(&data->philo[i].meal_mutex);
+		if (data->philo[i].meal_count < data->must_eat)
+		{
+			pthread_mutex_unlock(&data->philo[i].meal_mutex);
+			return (0);
+		}
+		pthread_mutex_unlock(&data->philo[i].meal_mutex);
+		i++;
+	}
+	return 1;
+}
 int	check_dead(t_data *data, int i)
 {
 	long	now;
@@ -179,6 +198,13 @@ void	*monitor(void *arg)
 			if (check_dead(data, i))
 				return (NULL);
 			i++;
+		}
+		if(enough_eat(data))
+		{
+			pthread_mutex_lock(&data->dead_mutex);
+			data->someone_dead=1;
+			pthread_mutex_unlock(&data->dead_mutex);
+			return NULL;
 		}
 		ft_usleep(1000);
 	}
