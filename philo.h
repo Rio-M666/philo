@@ -8,6 +8,9 @@
 # include <sys/time.h>
 # include <unistd.h>
 
+typedef struct s_philo t_philo;
+
+
 typedef struct s_data
 {
 	int				nb_philo;

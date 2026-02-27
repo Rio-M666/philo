@@ -33,6 +33,6 @@ void	ft_usleep(long long time)
 {
 	long long start;
 	start = get_time();
-	if (get_time() - start < time)
+	while (get_time() - start < time)
 		usleep(100);
 }
