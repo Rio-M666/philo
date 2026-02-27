@@ -38,10 +38,16 @@ int	init(int ac, char *av[], t_data *data)
 		return (1);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
 	if (!data->forks)
+	{
+		free(data->forks);
 		return (1);
+	}
 	data->philo = malloc(sizeof(t_philo) * data->nb_philo);
 	if (!data->philo)
+	{
+		free(data->forks);
 		return (1);
+	}
 	i = 0;
 	while (i < data->nb_philo)
 	{
@@ -234,7 +240,11 @@ int	main(int ac, char *av[])
 	if (init(ac, av, &data))
 		return (1);
 	if (data.must_eat == 0)
+	{
+		free(data.forks);
+		free(data.philo);
 		return (0);
+	}
 	data.start_time = get_time();
 	init_philos(&data);
 	i = 0;
@@ -251,5 +261,16 @@ int	main(int ac, char *av[])
 		i++;
 	}
 	pthread_join(data.monitor_thread, NULL);
+	i = 0;
+	while (i < data.nb_philo)
+	{
+		pthread_mutex_destroy(&data.forks[i]);
+		pthread_mutex_destroy(&data.philo[i].meal_mutex);
+		i++;
+	}
+	pthread_mutex_destroy(&data.print_mutex);
+	pthread_mutex_destroy(&data.dead_mutex);
+	free(data.forks);
+	free(data.philo);
 	return (0);
 }
