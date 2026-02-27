@@ -77,15 +77,15 @@ void	print_action(t_philo *philo, char *str)
 }
 void	take_forks(t_philo *philo)
 {
-	if(philo->data->nb_philo==1)
+	if (philo->data->nb_philo == 1)
 	{
 		pthread_mutex_lock(philo->left_fork);
-		while(!is_dead(philo->data))
+		print_action(philo, "has taken a fork");
+		while (!is_dead(philo->data))
 			usleep(100);
 		pthread_mutex_unlock(philo->left_fork);
 		return ;
 	}
-
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->right_fork);
@@ -103,13 +103,15 @@ void	take_forks(t_philo *philo)
 }
 void	release_forks(t_philo *philo)
 {
-	if(philo->data->nb_philo==1)
-		return;
+	if (philo->data->nb_philo == 1)
+		return ;
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
 }
 void	eat(t_philo *philo)
 {
+	if (is_dead(philo->data))
+		return ;
 	take_forks(philo);
 	pthread_mutex_lock(&philo->meal_mutex);
 	philo->last_meal = get_time();
@@ -143,13 +145,14 @@ void	*routine(void *philo_pointer)
 	}
 	return (NULL);
 }
-int enough_eat(t_data *data)
+int	enough_eat(t_data *data)
 {
-	int i;
-	i=0;
-	if(data->must_eat==-1)
-		return 0;
-	while(i<data->nb_philo)
+	int	i;
+
+	i = 0;
+	if (data->must_eat == -1)
+		return (0);
+	while (i < data->nb_philo)
 	{
 		pthread_mutex_lock(&data->philo[i].meal_mutex);
 		if (data->philo[i].meal_count < data->must_eat)
@@ -160,7 +163,7 @@ int enough_eat(t_data *data)
 		pthread_mutex_unlock(&data->philo[i].meal_mutex);
 		i++;
 	}
-	return 1;
+	return (1);
 }
 int	check_dead(t_data *data, int i)
 {
@@ -179,7 +182,6 @@ int	check_dead(t_data *data, int i)
 		pthread_mutex_unlock(&data->dead_mutex);
 		printf("%ld %d died\n", now - data->start_time, data->philo[i].id);
 		pthread_mutex_unlock(&data->print_mutex);
-
 		return (1);
 	}
 	return (0);
@@ -199,12 +201,12 @@ void	*monitor(void *arg)
 				return (NULL);
 			i++;
 		}
-		if(enough_eat(data))
+		if (enough_eat(data))
 		{
 			pthread_mutex_lock(&data->dead_mutex);
-			data->someone_dead=1;
+			data->someone_dead = 1;
 			pthread_mutex_unlock(&data->dead_mutex);
-			return NULL;
+			return (NULL);
 		}
 		ft_usleep(1000);
 	}
@@ -231,6 +233,8 @@ int	main(int ac, char *av[])
 	}
 	if (init(ac, av, &data))
 		return (1);
+	if (data.must_eat == 0)
+		return (0);
 	data.start_time = get_time();
 	init_philos(&data);
 	i = 0;
