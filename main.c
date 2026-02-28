@@ -6,7 +6,7 @@
 /*   By: mrio <mrio@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 15:58:23 by mrio              #+#    #+#             */
-/*   Updated: 2026/02/28 18:57:40 by mrio             ###   ########.fr       */
+/*   Updated: 2026/02/28 19:11:07 by mrio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	start_thread(t_data *data)
 
 int	main(int ac, char *av[])
 {
-	int		i;
 	t_data	data;
 
 	if (check(ac, av))
@@ -95,13 +94,13 @@ int	main(int ac, char *av[])
 	{
 		free(data.forks);
 		free(data.philo);
+		ft_exit(&data);
 		return (0);
 	}
 	data.start_time = get_time();
 	init_philos(&data);
 	if (data.nb_philo == 1)
 		return (case_one(&data));
-	i = 0;
 	start_thread(&data);
 	ft_exit(&data);
 	return (0);

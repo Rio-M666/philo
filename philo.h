@@ -6,7 +6,7 @@
 /*   By: mrio <mrio@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 18:17:25 by mrio              #+#    #+#             */
-/*   Updated: 2026/02/28 18:57:16 by mrio             ###   ########.fr       */
+/*   Updated: 2026/02/28 19:07:05 by mrio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct s_philo
 	t_data				*data;
 }						t_philo;
 
-int						parse_args(int ac, char **av, t_data *data);
 long					get_time(void);
 int						ft_atoi(const char *str);
 void					ft_usleep(long long time);
@@ -68,5 +67,4 @@ int						init(int ac, char *av[], t_data *data);
 void					init_philos(t_data *data);
 int						case_one(t_data *data);
 void					*philo_one(void *philo_pointer);
-void					print_action(t_philo *philo, char *str);
 #endif
