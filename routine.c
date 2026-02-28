@@ -6,7 +6,7 @@
 /*   By: mrio <mrio@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 15:58:09 by mrio              #+#    #+#             */
-/*   Updated: 2026/02/28 18:15:48 by mrio             ###   ########.fr       */
+/*   Updated: 2026/02/28 21:09:43 by mrio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	take_forks(t_philo *philo)
 	}
 	else
 	{
+		ft_usleep(1);
 		pthread_mutex_lock(philo->left_fork);
 		print_action(philo, "has taken a fork");
 		pthread_mutex_lock(philo->right_fork);
@@ -66,8 +67,6 @@ void	*routine(void *philo_pointer)
 	t_philo	*philo;
 
 	philo = (t_philo *)philo_pointer;
-	if (philo->id % 2 == 0)
-		ft_usleep(1);
 	while (!is_dead(philo->data))
 	{
 		eat(philo);

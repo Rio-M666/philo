@@ -6,24 +6,11 @@
 /*   By: mrio <mrio@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 16:10:00 by mrio              #+#    #+#             */
-/*   Updated: 2026/02/28 16:16:41 by mrio             ###   ########.fr       */
+/*   Updated: 2026/02/28 21:08:54 by mrio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	set_dead(t_data *data, int id)
-{
-	long	now;
-
-	pthread_mutex_lock(&data->print_mutex);
-	pthread_mutex_lock(&data->dead_mutex);
-	data->someone_dead = 1;
-	pthread_mutex_unlock(&data->dead_mutex);
-	now = get_time();
-	printf("%ld %d died\n", now - data->start_time, id);
-	pthread_mutex_unlock(&data->print_mutex);
-}
 
 int	enough_eat(t_data *data)
 {
@@ -46,16 +33,27 @@ int	enough_eat(t_data *data)
 	return (1);
 }
 
-int	check_dead(t_data *data, int i)
+void	set_dead(t_data *data, int id)
 {
 	long	now;
+
+	pthread_mutex_lock(&data->print_mutex);
+	pthread_mutex_lock(&data->dead_mutex);
+	data->someone_dead = 1;
+	pthread_mutex_unlock(&data->dead_mutex);
+	now = get_time();
+	printf("%ld %d died\n", now - data->start_time, id);
+	pthread_mutex_unlock(&data->print_mutex);
+}
+
+int	check_dead(t_data *data, int i)
+{
 	long	last_meal;
 
 	pthread_mutex_lock(&data->philo[i].meal_mutex);
 	last_meal = data->philo[i].last_meal;
 	pthread_mutex_unlock(&data->philo[i].meal_mutex);
-	now = get_time();
-	if (now - last_meal > data->time_to_die)
+	if (get_time() - last_meal >= data->time_to_die)
 	{
 		set_dead(data, data->philo[i].id);
 		return (1);
@@ -85,6 +83,5 @@ void	*monitor(void *arg)
 			pthread_mutex_unlock(&data->dead_mutex);
 			return (NULL);
 		}
-		usleep(1000);
 	}
 }
