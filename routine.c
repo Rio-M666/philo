@@ -6,7 +6,7 @@
 /*   By: mrio <mrio@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 15:58:09 by mrio              #+#    #+#             */
-/*   Updated: 2026/02/28 16:15:32 by mrio             ###   ########.fr       */
+/*   Updated: 2026/02/28 18:15:48 by mrio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,23 +61,18 @@ void	sleep_philo(t_philo *philo)
 	ft_usleep(philo->data->time_to_sleep);
 }
 
-void	think(t_philo *philo)
-{
-	print_action(philo, "is thinking");
-}
-
 void	*routine(void *philo_pointer)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)philo_pointer;
 	if (philo->id % 2 == 0)
-		ft_usleep(philo->data->time_to_eat / 2);
+		ft_usleep(1);
 	while (!is_dead(philo->data))
 	{
 		eat(philo);
 		sleep_philo(philo);
-		think(philo);
+		print_action(philo, "is thinking");
 	}
 	return (NULL);
 }
