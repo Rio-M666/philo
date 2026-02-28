@@ -6,7 +6,7 @@
 /*   By: mrio <mrio@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 15:58:23 by mrio              #+#    #+#             */
-/*   Updated: 2026/02/28 18:35:36 by mrio             ###   ########.fr       */
+/*   Updated: 2026/02/28 18:38:50 by mrio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	check(int ac, char *av[])
 int	case_one(t_data *data)
 {
 	pthread_create(&data->philo[0].thread, NULL, philo_one, &data->philo[0]);
-	pthread_create(&data->monitor_thread, NULL, monitor, &data);
+	pthread_create(&data->monitor_thread, NULL, monitor, data);
 	pthread_join(data->philo[0].thread, NULL);
 	pthread_join(data->monitor_thread, NULL);
 	return (0);
