@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrio <mrio@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/28 15:58:36 by mrio              #+#    #+#             */
+/*   Updated: 2026/02/28 16:15:14 by mrio             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 long	get_time(void)
@@ -7,6 +19,7 @@ long	get_time(void)
 	gettimeofday(&tv, NULL);
 	return (tv.tv_sec * 1000L + tv.tv_usec / 1000L);
 }
+
 int	ft_atoi(const char *str)
 {
 	int	result;
@@ -29,10 +42,17 @@ int	ft_atoi(const char *str)
 	}
 	return (result * sign);
 }
+
 void	ft_usleep(long long time)
 {
-	long long start;
+	long long	start;
+
 	start = get_time();
 	while (get_time() - start < time)
 		usleep(100);
+}
+
+int	is_digit(char c)
+{
+	return (c >= '0' && c <= '9');
 }

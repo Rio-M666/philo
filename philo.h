@@ -47,4 +47,11 @@ int						parse_args(int ac, char **av, t_data *data);
 long					get_time(void);
 int						ft_atoi(const char *str);
 void					ft_usleep(long long time);
+void					*routine(void *philo_pointer);
+void					print_action(t_philo *philo, char *str);
+int						is_dead(t_data *data);
+void					*monitor(void *arg);
+int						is_digit(char c);
+int						init(int ac, char *av[], t_data *data);
+void					init_philos(t_data *data);
 #endif
