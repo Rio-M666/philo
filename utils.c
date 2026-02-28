@@ -6,7 +6,7 @@
 /*   By: mrio <mrio@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 15:58:36 by mrio              #+#    #+#             */
-/*   Updated: 2026/02/28 16:15:14 by mrio             ###   ########.fr       */
+/*   Updated: 2026/02/28 18:49:17 by mrio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,19 @@ long	get_time(void)
 
 	gettimeofday(&tv, NULL);
 	return (tv.tv_sec * 1000L + tv.tv_usec / 1000L);
+}
+
+void	print_action(t_philo *philo, char *str)
+{
+	long	now;
+
+	pthread_mutex_lock(&philo->data->print_mutex);
+	if (!is_dead(philo->data))
+	{
+		now = get_time();
+		printf("%ld %d %s\n", now - philo->data->start_time, philo->id, str);
+	}
+	pthread_mutex_unlock(&philo->data->print_mutex);
 }
 
 int	ft_atoi(const char *str)

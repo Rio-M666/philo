@@ -6,7 +6,7 @@
 /*   By: mrio <mrio@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 18:17:25 by mrio              #+#    #+#             */
-/*   Updated: 2026/02/28 18:17:31 by mrio             ###   ########.fr       */
+/*   Updated: 2026/02/28 18:46:26 by mrio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,6 @@ void					*monitor(void *arg);
 int						is_digit(char c);
 int						init(int ac, char *av[], t_data *data);
 void					init_philos(t_data *data);
+int						case_one(t_data *data);
+void					*philo_one(void *philo_pointer);
 #endif

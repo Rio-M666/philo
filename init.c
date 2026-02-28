@@ -6,7 +6,7 @@
 /*   By: mrio <mrio@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 16:11:25 by mrio              #+#    #+#             */
-/*   Updated: 2026/02/28 16:15:59 by mrio             ###   ########.fr       */
+/*   Updated: 2026/02/28 18:54:50 by mrio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,25 @@ void	init_philos(t_data *data)
 	}
 }
 
-int	init(int ac, char *av[], t_data *data)
+int	mutex_init(t_data *data)
 {
 	int	i;
 
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		pthread_mutex_init(&data->forks[i], NULL);
+		i++;
+	}
+	data->start_time = 0;
+	data->someone_dead = 0;
+	pthread_mutex_init(&data->print_mutex, NULL);
+	pthread_mutex_init(&data->dead_mutex, NULL);
+	return (0);
+}
+
+int	init(int ac, char *av[], t_data *data)
+{
 	data->nb_philo = ft_atoi(av[1]);
 	data->time_to_die = ft_atoi(av[2]);
 	data->time_to_eat = ft_atoi(av[3]);
@@ -51,15 +66,6 @@ int	init(int ac, char *av[], t_data *data)
 	data->philo = malloc(sizeof(t_philo) * data->nb_philo);
 	if (!data->philo)
 		return (1);
-	i = 0;
-	while (i < data->nb_philo)
-	{
-		pthread_mutex_init(&data->forks[i], NULL);
-		i++;
-	}
-	data->start_time = 0;
-	data->someone_dead = 0;
-	pthread_mutex_init(&data->print_mutex, NULL);
-	pthread_mutex_init(&data->dead_mutex, NULL);
+	mutex_init(data);
 	return (0);
 }
