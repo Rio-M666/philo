@@ -6,7 +6,7 @@
 /*   By: mrio <mrio@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 15:58:23 by mrio              #+#    #+#             */
-/*   Updated: 2026/02/28 19:11:07 by mrio             ###   ########.fr       */
+/*   Updated: 2026/02/28 21:34:23 by mrio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,17 @@ int	main(int ac, char *av[])
 		return (1);
 	if (data.must_eat == 0)
 	{
-		free(data.forks);
-		free(data.philo);
 		ft_exit(&data);
 		return (0);
 	}
 	data.start_time = get_time();
 	init_philos(&data);
 	if (data.nb_philo == 1)
-		return (case_one(&data));
+	{
+		case_one(&data);
+		ft_exit(&data);
+		return (0);
+	}
 	start_thread(&data);
 	ft_exit(&data);
 	return (0);
