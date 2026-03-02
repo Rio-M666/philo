@@ -6,7 +6,7 @@
 /*   By: mrio <mrio@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 16:10:00 by mrio              #+#    #+#             */
-/*   Updated: 2026/02/28 21:08:54 by mrio             ###   ########.fr       */
+/*   Updated: 2026/03/02 23:42:19 by mrio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void	set_dead(t_data *data, int id)
 {
 	long	now;
 
-	pthread_mutex_lock(&data->print_mutex);
 	pthread_mutex_lock(&data->dead_mutex);
 	data->someone_dead = 1;
 	pthread_mutex_unlock(&data->dead_mutex);
 	now = get_time();
+	pthread_mutex_lock(&data->print_mutex);
 	printf("%ld %d died\n", now - data->start_time, id);
 	pthread_mutex_unlock(&data->print_mutex);
 }
@@ -83,5 +83,6 @@ void	*monitor(void *arg)
 			pthread_mutex_unlock(&data->dead_mutex);
 			return (NULL);
 		}
+		usleep(500);
 	}
 }

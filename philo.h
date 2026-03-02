@@ -6,13 +6,14 @@
 /*   By: mrio <mrio@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 18:17:25 by mrio              #+#    #+#             */
-/*   Updated: 2026/02/28 19:07:05 by mrio             ###   ########.fr       */
+/*   Updated: 2026/03/03 00:12:00 by mrio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
+# include <limits.h>
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -56,7 +57,7 @@ typedef struct s_philo
 }						t_philo;
 
 long					get_time(void);
-int						ft_atoi(const char *str);
+long					ft_atol(const char *str);
 void					ft_usleep(long long time);
 void					*routine(void *philo_pointer);
 void					print_action(t_philo *philo, char *str);

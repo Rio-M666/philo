@@ -6,7 +6,7 @@
 /*   By: mrio <mrio@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 16:11:25 by mrio              #+#    #+#             */
-/*   Updated: 2026/03/02 23:27:41 by mrio             ###   ########.fr       */
+/*   Updated: 2026/03/03 00:11:15 by mrio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,16 @@ int	mutex_init(t_data *data)
 
 int	init(int ac, char *av[], t_data *data)
 {
-	data->nb_philo = ft_atoi(av[1]);
-	data->time_to_die = ft_atoi(av[2]);
-	data->time_to_eat = ft_atoi(av[3]);
-	data->time_to_sleep = ft_atoi(av[4]);
+	data->nb_philo = ft_atol(av[1]);
+	data->time_to_die = ft_atol(av[2]);
+	data->time_to_eat = ft_atol(av[3]);
+	data->time_to_sleep = ft_atol(av[4]);
 	if (ac == 6)
-		data->must_eat = ft_atoi(av[5]);
+	{
+		data->must_eat = ft_atol(av[5]);
+		if (data->must_eat < 0)
+			return (1);
+	}
 	else
 		data->must_eat = -1;
 	if (data->nb_philo <= 0 || data->time_to_die < 0 || data->time_to_eat < 0
@@ -65,10 +69,7 @@ int	init(int ac, char *av[], t_data *data)
 		return (1);
 	data->philo = malloc(sizeof(t_philo) * data->nb_philo);
 	if (!data->philo)
-	{
-		free(data->forks);
-		return (1);
-	}
+		return (free(data->forks), 1);
 	mutex_init(data);
 	return (0);
 }

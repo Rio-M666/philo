@@ -6,7 +6,7 @@
 /*   By: mrio <mrio@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 15:58:36 by mrio              #+#    #+#             */
-/*   Updated: 2026/03/02 23:28:49 by mrio             ###   ########.fr       */
+/*   Updated: 2026/03/03 00:08:45 by mrio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	print_action(t_philo *philo, char *str)
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }
 
-int	ft_atoi(const char *str)
+long	ft_atol(const char *str)
 {
-	int	result;
-	int	sign;
+	long	result;
+	int		sign;
 
 	result = 0;
 	sign = 1;
@@ -52,6 +52,8 @@ int	ft_atoi(const char *str)
 	}
 	while (*str >= '0' && *str <= '9')
 	{
+		if (result > (LONG_MAX - (*str - '0')) / 10)
+			return (-1);
 		result = result * 10 + (*str - '0');
 		str++;
 	}
