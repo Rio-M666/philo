@@ -6,7 +6,7 @@
 /*   By: mrio <mrio@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 18:45:08 by mrio              #+#    #+#             */
-/*   Updated: 2026/02/28 18:55:52 by mrio             ###   ########.fr       */
+/*   Updated: 2026/03/02 23:29:44 by mrio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*philo_one(void *philo_pointer)
 	pthread_mutex_lock(philo->left_fork);
 	print_action(philo, "has taken a fork");
 	while (!is_dead(philo->data))
-		ft_usleep(philo->data->time_to_die);
+		usleep(500);
 	pthread_mutex_unlock(philo->left_fork);
 	return (NULL);
 }

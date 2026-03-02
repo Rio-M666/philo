@@ -6,7 +6,7 @@
 /*   By: mrio <mrio@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 15:58:36 by mrio              #+#    #+#             */
-/*   Updated: 2026/02/28 20:58:15 by mrio             ###   ########.fr       */
+/*   Updated: 2026/03/02 23:28:49 by mrio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	print_action(t_philo *philo, char *str)
 {
 	long	now;
 
+	if (is_dead(philo->data))
+		return ;
 	now = get_time();
 	pthread_mutex_lock(&philo->data->print_mutex);
 	if (!is_dead(philo->data))

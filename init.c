@@ -6,7 +6,7 @@
 /*   By: mrio <mrio@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 16:11:25 by mrio              #+#    #+#             */
-/*   Updated: 2026/02/28 18:54:50 by mrio             ###   ########.fr       */
+/*   Updated: 2026/03/02 23:27:41 by mrio             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ int	init(int ac, char *av[], t_data *data)
 		return (1);
 	data->philo = malloc(sizeof(t_philo) * data->nb_philo);
 	if (!data->philo)
+	{
+		free(data->forks);
 		return (1);
+	}
 	mutex_init(data);
 	return (0);
 }
