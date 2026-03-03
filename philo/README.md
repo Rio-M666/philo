@@ -67,17 +67,13 @@ make re      # Recompile from scratch
 
 ### Documentation & References
 
-- [POSIX Threads Programming – Lawrence Livermore National Laboratory](https://hpc-tutorials.llnl.gov/posix/) — comprehensive guide to pthreads, mutexes, and synchronization
-- [Dining Philosophers Problem – Wikipedia](https://en.wikipedia.org/wiki/Dining_philosophers_problem) — problem statement and classic solutions
-- [pthread_mutex_lock man page](https://man7.org/linux/man-pages/man3/pthread_mutex_lock.3p.html)
-- [gettimeofday man page](https://man7.org/linux/man-pages/man2/gettimeofday.2.html)
+https://note.com/syamashi/n/nd339d679bcd1
+
+https://docs.google.com/presentation/d/12-lAykLu-RVACE1gI2aP-uEYZoOaeeFVYGh8W4ttTNw/edit?slide=id.gd4524b1be8_0_253#slide=id.gd4524b1be8_0_253
+
+https://qiita.com/ryo_manba/items/e48faf2ba84f9e5d31c8
 
 ### AI Usage
 
-AI (Claude) was used during this project for the following tasks:
-
-- **Debugging**: Identifying pointer type mismatches (passing `t_data **` instead of `t_data *` to the monitor thread) and tracking down the root cause of segmentation faults
-- **Code review**: Spotting issues such as duplicate function declarations in the header, unused variables, missing source files in the Makefile, and potential mutex locking order concerns
-- **Refactoring feedback**: Verifying correctness after splitting files (e.g., extracting `philo_one.c`) and reorganizing initialization logic
 
 All logic, architecture decisions, and final code were written and validated by the author.
